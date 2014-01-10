@@ -16,3 +16,9 @@
 *.exe
 *.out
 *.app
+
+# Ubuntu temp files
+*~
+
+# Compiled utility
+rain
