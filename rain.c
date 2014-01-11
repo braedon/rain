@@ -4,13 +4,11 @@
 #include <string.h>
 #include <math.h>
 
-#define HEIGHT 60 //25
-#define WIDTH 175 //79
 #define GENNUM 16
 
 int current_getch;
 static WINDOW *mainwnd;
-int y = HEIGHT, x = WIDTH;
+int y, x;
 char** array;
 int genNum = GENNUM;
 char* test = "hello";
@@ -31,6 +29,9 @@ struct Inputs inputs;
 void screen_init(void) {
   int i, j;
   char* p;
+
+  x = COLS;
+  y = LINES;
 
   inputs.width = x;
   inputs.full = 0;
