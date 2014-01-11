@@ -4,14 +4,9 @@
 #include <string.h>
 #include <math.h>
 
-#define GENNUM 16
-
-int current_getch;
 static WINDOW *mainwnd;
 int y, x;
 char** array;
-int genNum = GENNUM;
-char* test = "hello";
 
 struct Input {
   int currVal;
