@@ -5,7 +5,7 @@
 #include <math.h>
 
 static WINDOW *mainwnd;
-int lines, cols;
+int lines = 0, cols = 0;
 char** array;
 
 struct Input {
@@ -22,31 +22,6 @@ struct Inputs {
 struct Inputs inputs;
 
 void screen_init(void) {
-  int i, j;
-  char* p;
-
-  cols = COLS;
-  lines = LINES;
-
-  inputs.width = cols;
-  inputs.full = 0;
-
-  inputs.inputs = (struct Input**) malloc(sizeof(struct Inputs*) * cols);
-
-  array = (char**) malloc(sizeof(char*) * lines);
-
-  for (j = 0; j < cols; j++) {
-    inputs.inputs[j] = NULL;
-  }
-
-  for (i = 0; i < lines; i++) {
-    array[i] = (char*) malloc(sizeof(char) * cols + 1);
-    for (j = 0; j < cols; j++) {
-      array[i][j] = ' ';
-    }
-    array[i][cols] = 0;
-  }
-
   mainwnd = initscr();
   noecho();
   cbreak();
