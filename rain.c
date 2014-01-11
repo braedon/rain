@@ -97,6 +97,7 @@ void shiftAndPrint() {
     } else {
       input = inputs.inputs[j];
       if (input->currVal < 0) {
+        free(input);
         inputs.inputs[j] = NULL;
         inputs.full--;
         array[0][j] = ' ';
