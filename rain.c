@@ -5,7 +5,7 @@
 #include <math.h>
 
 static WINDOW *mainwnd;
-int y, x;
+int lines, cols;
 char** array;
 
 struct Input {
@@ -25,26 +25,26 @@ void screen_init(void) {
   int i, j;
   char* p;
 
-  x = COLS;
-  y = LINES;
+  cols = COLS;
+  lines = LINES;
 
-  inputs.width = x;
+  inputs.width = cols;
   inputs.full = 0;
 
-  inputs.inputs = (struct Input**) malloc(sizeof(struct Inputs*) * x);
+  inputs.inputs = (struct Input**) malloc(sizeof(struct Inputs*) * cols);
 
-  array = (char**) malloc(sizeof(char*) * y);
+  array = (char**) malloc(sizeof(char*) * lines);
 
-  for (j = 0; j < x; j++) {
+  for (j = 0; j < cols; j++) {
     inputs.inputs[j] = NULL;
   }
 
-  for (i = 0; i < y; i++) {
-    array[i] = (char*) malloc(sizeof(char) * x + 1);
-    for (j = 0; j < x; j++) {
+  for (i = 0; i < lines; i++) {
+    array[i] = (char*) malloc(sizeof(char) * cols + 1);
+    for (j = 0; j < cols; j++) {
       array[i][j] = ' ';
     }
-    array[i][x] = 0;
+    array[i][cols] = 0;
   }
 
   mainwnd = initscr();
@@ -55,49 +55,49 @@ void screen_init(void) {
   wrefresh(mainwnd);
 }
 
-void updateSize(int newy, int newx) {
+void updateSize(int newLines, int newCols) {
   int i, j;
 
-  if (x != newx || y != newy) {
-    inputs.width = newx;
+  if (cols != newCols || lines != newLines) {
+    inputs.width = newCols;
     inputs.full = 0;
 
-    inputs.inputs = (struct Input**) realloc(inputs.inputs, sizeof(struct Inputs*) * newx);
+    inputs.inputs = (struct Input**) realloc(inputs.inputs, sizeof(struct Inputs*) * newCols);
 
-    for (j = x; j < newx; j++) {
+    for (j = cols; j < newCols; j++) {
       inputs.inputs[j] = NULL;
     }
 
-    for (j = 0; j < newx; j++) {
+    for (j = 0; j < newCols; j++) {
       if (inputs.inputs[j] != NULL) {
         inputs.full++;
       }
     }
 
-    array = (char**) realloc(array, sizeof(char*) * newy);
+    array = (char**) realloc(array, sizeof(char*) * newLines);
 
-    for (i = y; i < newy; i++) {
+    for (i = lines; i < newLines; i++) {
       array[i] = NULL;
     }
 
-    for (i = 0; i < newy; i++) {
-      array[i] = (char*) realloc(array[i], sizeof(char) * newx + 1);
-      if (newx > x) {
-        for (j = x; j < newx; j++) {
+    for (i = 0; i < newLines; i++) {
+      array[i] = (char*) realloc(array[i], sizeof(char) * newCols + 1);
+      if (newCols > cols) {
+        for (j = cols; j < newCols; j++) {
           array[i][j] = ' ';
         }
       }
 
-      if (i >= y ) {
-        for (j = 0; j < x; j++) {
+      if (i >= lines ) {
+        for (j = 0; j < cols; j++) {
           array[i][j] = ' ';
         }
       }
-      array[i][newx] = 0;
+      array[i][newCols] = 0;
     }
 
-    y = newy;
-    x = newx;
+    lines = newLines;
+    cols = newCols;
   }
 }
 
@@ -107,16 +107,16 @@ void shiftAndPrint() {
   char character;
   char* bottomRow;
 
-  bottomRow = array[y - 1];
+  bottomRow = array[lines - 1];
 
-  for (i = y - 1; i > 0; i--) {
+  for (i = lines - 1; i > 0; i--) {
     array[i] = array[i - 1];
     mvwprintw(mainwnd,i, 0,"%s", array[i]);
   }
 
   array[0] = bottomRow;
 
-  for (j = 0; j < x; j++) {
+  for (j = 0; j < cols; j++) {
     if (inputs.inputs[j] == NULL) {
       array[0][j] = ' ';
     } else {
