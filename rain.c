@@ -143,16 +143,11 @@ int main(void) {
     startWait = clock();
 
     updateSize(LINES, COLS);
-    //if (!fseek(stdin, 1, SEEK_CUR)) {
-    //  fseek(stdin, -1, SEEK_CUR);
       if (inputs.full < inputs.width) {
-        //d = rand() % (int)((inputs.width - inputs.full) / sqrt(inputs.width));
         d = rand() % (int)((inputs.width - inputs.full) / (inputs.width / 4));
         for (c = 0; c < d; c++) {
           input = (struct Input*) malloc(sizeof(struct Input));
           scanf("%[^\n]\n", input->str);
-          //fgets(input->str, 256, stdin);
-          //scanf("%s", input->str);
           input->currVal = strlen(input->str) - 1;
 
           b = rand() % (inputs.width - inputs.full);
@@ -170,7 +165,6 @@ int main(void) {
           }
         }
       }
-    //}
     update_display();
     wait(40, startWait);
   }
