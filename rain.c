@@ -138,16 +138,22 @@ int main(void) {
   clock_t startWait;
   screen_init();
   int j, a, b, c, d, newx, newy;
+  char line[MAX_LINE_LENGTH];
+  int readResult;
 
   while (true) {
     startWait = clock();
 
     updateSize(LINES, COLS);
-      if (inputs.full < inputs.width) {
-        d = rand() % (int)((inputs.width - inputs.full) / (inputs.width / 4));
-        for (c = 0; c < d; c++) {
+    if (inputs.full < inputs.width) {
+      d = rand() % (int)((inputs.width - inputs.full) / (inputs.width / 4));
+      for (c = 0; c < d; c++) {
+        readResult = getstr(line);
+
+        if(readResult == OK) {
           input = (struct Input*) malloc(sizeof(struct Input));
-          scanf("%[^\n]\n", input->str);
+
+          strcpy(input->str, line);
           input->currVal = strlen(input->str) - 1;
 
           b = rand() % (inputs.width - inputs.full);
@@ -165,6 +171,7 @@ int main(void) {
           }
         }
       }
+    }
     update_display();
     wait(40, startWait);
   }
