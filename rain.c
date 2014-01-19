@@ -4,13 +4,15 @@
 #include <string.h>
 #include <math.h>
 
+#define MAX_LINE_LENGTH 256
+
 static WINDOW *mainwnd;
 int lines = 0, cols = 0;
 char** array;
 
 struct Input {
   int currVal;
-  char str[256];
+  char str[MAX_LINE_LENGTH];
 };
 
 struct Inputs {
