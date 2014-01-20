@@ -32,7 +32,7 @@ void screen_init(void) {
   wrefresh(mainwnd);
 }
 
-struct timespec sleepPeriod = {0, 1000};
+struct timespec sleepPeriod = {0, 40*1000*1000};
 
 void updateSize(int newLines, int newCols) {
   int i, j;
@@ -139,14 +139,6 @@ void screen_end(void) {
   endwin();
 }
 
-void wait (int ms, clock_t startWait) {
-  clock_t endWait;
-  endWait = startWait + ms * CLOCKS_PER_SEC / 1000;
-  while (clock() < endWait) {
-    nanosleep(&sleepPeriod, NULL);
-  }
-}
-
 int main(void) {
   struct Input* input;
   clock_t startWait;
@@ -187,7 +179,7 @@ int main(void) {
       }
     }
     update_display();
-    wait(20, startWait);
+    nanosleep(&sleepPeriod, NULL);
   }
   screen_end();
   return 0;
