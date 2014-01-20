@@ -57,6 +57,10 @@ void updateSize(int newLines, int newCols) {
       }
     }
 
+    for (i = newLines; i < lines; i++) {
+      free(array[i]);
+    }
+
     array = (char**) realloc(array, sizeof(char*) * newLines);
 
     for (i = lines; i < newLines; i++) {
