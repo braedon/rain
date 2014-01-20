@@ -39,6 +39,12 @@ void updateSize(int newLines, int newCols) {
     inputs.width = newCols;
     inputs.full = 0;
 
+    for (j = newCols; j < cols; j++) {
+      if (inputs.inputs[j] != NULL) {
+        free(inputs.inputs[j]);
+      }
+    }
+
     inputs.inputs = (struct Input**) realloc(inputs.inputs, sizeof(struct Inputs*) * newCols);
 
     for (j = cols; j < newCols; j++) {
