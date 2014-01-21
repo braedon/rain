@@ -93,7 +93,6 @@ void updateSize(int newLines, int newCols) {
 void shiftAndPrint() {
   int i, j;
   struct Input* input;
-  char character;
   char* bottomRow;
 
   bottomRow = array[lines - 1];
@@ -141,16 +140,14 @@ void screen_end(void) {
 
 int main(void) {
   struct Input* input;
-  clock_t startWait;
   screen_init();
   int j, a, b, c, d, newx, newy;
   char line[MAX_LINE_LENGTH];
   int readResult;
 
   while (true) {
-    startWait = clock();
-
     updateSize(LINES, COLS);
+
     if (inputs.full < inputs.width) {
       d = rand() % (int)((inputs.width - inputs.full) / (inputs.width / 4));
       for (c = 0; c < d; c++) {
@@ -178,9 +175,11 @@ int main(void) {
         }
       }
     }
+
     update_display();
     nanosleep(&sleepPeriod, NULL);
   }
+
   screen_end();
   return 0;
 }
