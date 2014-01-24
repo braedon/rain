@@ -70,6 +70,7 @@ void updateSize(int newLines, int newCols) {
     }
 
     for (i = 0; i < newLines; i++) {
+      array[i] = (char*) realloc(array[i], sizeof(char) * (newCols + 1));
       array[i] = (char*) realloc(array[i], sizeof(char) * newCols + 1);
       if (newCols > cols) {
         for (j = cols; j < newCols; j++) {
@@ -82,7 +83,7 @@ void updateSize(int newLines, int newCols) {
           array[i][j] = ' ';
         }
       }
-      array[i][newCols] = 0;
+      array[i][newCols] = '\0';
     }
 
     lines = newLines;
