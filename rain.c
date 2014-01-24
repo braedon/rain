@@ -151,7 +151,7 @@ int main(void) {
     if (inputs.full < inputs.width) {
       d = rand() % (int)((inputs.width - inputs.full) / (inputs.width / 4));
       for (c = 0; c < d; c++) {
-        readResult = getstr(line);
+        readResult = getnstr(line, MAX_LINE_LENGTH - 1);
 
         if(readResult == OK) {
           input = (struct Input*) malloc(sizeof(struct Input));
