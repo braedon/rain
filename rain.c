@@ -79,7 +79,7 @@ void updateSize(int newLines, int newCols) {
       }
 
       if (i >= lines ) {
-        for (j = 0; j < cols; j++) {
+        for (j = 0; j < newCols; j++) {
           array[i][j] = ' ';
         }
       }
